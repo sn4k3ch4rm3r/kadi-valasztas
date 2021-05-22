@@ -2,7 +2,7 @@ from django.http.response import HttpResponse, HttpResponseBadRequest
 import requests
 from django.shortcuts import redirect, render
 from django.views.generic import View
-from KadiVote import settings
+from django.conf import settings
 
 class LandingPage(View):
 	def get(self, request):
