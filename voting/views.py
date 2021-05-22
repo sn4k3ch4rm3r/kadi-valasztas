@@ -1,4 +1,5 @@
 from django.http.response import HttpResponseBadRequest
+from django.urls import reverse
 import requests
 from django.shortcuts import redirect, render
 from django.views.generic import View
@@ -42,3 +43,11 @@ class Vote(View):
 	def get(self, request):
 		authorized = request.session['email'].endswith('@tanulo.boronkay.hu')
 		return render(request, 'voting/vote.html', context={'authorized': authorized})
+
+def logout(request):
+	request.session.clear()
+	return redirect(f"https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri={get_current_host(request) + reverse('landing')}")
+
+def get_current_host(request) -> str:
+    scheme = request.is_secure() and "https" or "http"
+    return f'{scheme}://{request.get_host()}'
