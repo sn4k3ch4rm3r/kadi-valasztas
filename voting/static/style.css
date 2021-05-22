@@ -28,6 +28,24 @@
     margin-bottom: 5px;
 }
 
+@media screen and (min-width: 700px) {
+    .landing-title {
+        font-size: 3.75em;
+        font-weight: 300;
+    }
+
+    .landigpage-container {
+        max-width: 800px;
+    }
+    .landingpage-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+    .landingpage-buttons :first-child {
+        margin-right: 5px;
+    }
+}
+
 body {
     min-height: 100vh;
     display: flex;
