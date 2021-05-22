@@ -132,3 +132,8 @@ main {
 .mdc-ripple-surface--primary:before {
     background-color: var(--mdc-theme-primary);
 }
+
+.voting-form {
+    max-width: 800px;
+    margin: auto;
+}

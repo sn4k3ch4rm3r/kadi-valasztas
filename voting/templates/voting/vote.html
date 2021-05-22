@@ -12,7 +12,7 @@
 	</div>
 </header>
 <main class="mdc-top-app-bar--fixed-adjust">
-	<form>
+	<form class="voting-form">
 		{% for i in '1234567' %}
 			<div class="mdc-card voting-option mdc-ripple-surface mdc-ripple-surface--primary">
 				<img class="leading-image" src="{% static 'images/boglari.png' %}" alt="">
@@ -30,7 +30,6 @@
 			<span class="mdc-button__ripple"></span>
 			<span class="mdc-button__label">Szavazat elküldése</span>
 		</button>
-
 	</form>
 </main>	
 {% endblock body %}
