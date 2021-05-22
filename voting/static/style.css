@@ -11,7 +11,7 @@
 .landigpage-container {
     text-align: center;
     width: 80%;
-    margin: auto;
+    margin: 20px auto;
 }
 
 .mdc-button__label {
@@ -26,4 +26,17 @@
 .landingpage-buttons > * {
     width: 100%;
     margin-bottom: 5px;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin:0;
+    padding: 0;
+}
+
+#watermark {
+    text-align: center;
+    margin-top: auto;
 }
