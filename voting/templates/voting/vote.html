@@ -1,12 +1,36 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block body %}
-	<p>Email: {{request.session.email}}</p>
-	<p>
-		{% if authorized%}
-			Van jogod szavazni!
-		{% else %}
-			Nincs jogod szavazni!
-		{% endif %}
-	</p>
+<header class="mdc-top-app-bar mdc-top-app-bar--elevated">
+	<div class="mdc-top-app-bar__row">
+		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--centered">
+			<span class="mdc-top-app-bar__title">Kádi választás 2021</span>
+		</section>
+		<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+			<a class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite">logout</a>
+		</section>
+	</div>
+</header>
+<main class="mdc-top-app-bar--fixed-adjust">
+	<form>
+		{% for i in '1234567' %}
+			<div class="mdc-card voting-option mdc-ripple-surface mdc-ripple-surface--primary">
+				<img class="leading-image" src="{% static 'images/boglari.png' %}" alt="">
+				<div class="candidate-card-content">
+					<div class="candidate-info">
+						<h6 class="mdc-typography--headline6 candidate-name">Boglári Gergő</h6>
+						<p class="mdc-typography--body2 candidate-class">11. P</p>
+					</div>
+					<span class="material-icons checkmark">check_circle</span>
+				</div>
+				<input type="radio" name="kadi" value="{{i}}" id="{{i}}" class="voting-option__input">
+			</div>
+		{% endfor %}
+		<button type="button" class="mdc-button mdc-button--raised submit-vote ripple">
+			<span class="mdc-button__ripple"></span>
+			<span class="mdc-button__label">Szavazat elküldése</span>
+		</button>
+
+	</form>
+</main>	
 {% endblock body %}

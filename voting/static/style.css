@@ -58,3 +58,77 @@ body {
     text-align: center;
     margin-top: auto;
 }
+
+main {
+    padding: 10px;
+}
+
+.mdc-top-app-bar__section--centered {
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+    height: 100%;
+}
+.mdc-top-app-bar__section--centered * {
+    padding: 0;
+}
+
+.voting-option__input {
+    display: none;
+}
+
+.voting-option {
+    height: 68px;
+    margin-top: 10px;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.submit-vote {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.leading-image {
+    width: 60px;
+    margin: 4px;
+}
+
+.candidate-card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 15px;
+}
+
+.candidate-info {
+    height: min-content;
+    margin: auto 15px;
+}
+
+.candidate-name, .candidate-class {
+    margin: 0;
+}
+
+.checkmark {
+    margin: auto 0;
+    color: var(--mdc-theme-primary);
+    visibility: hidden;
+}
+
+.voting-option.selected {
+    background-color: #fbeded;
+}
+
+.voting-option.selected .checkmark {
+    visibility: visible;
+}
+
+.mdc-ripple-surface--primary:after,
+.mdc-ripple-surface--primary:before {
+    background-color: var(--mdc-theme-primary);
+}
