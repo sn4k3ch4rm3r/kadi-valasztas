@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse, HttpResponseBadRequest
+from django.http.response import HttpResponseBadRequest
 import requests
 from django.shortcuts import redirect, render
 from django.views.generic import View

@@ -77,9 +77,9 @@ OA_CLIENT_SECRET = os.environ['KADI_CLIENT_SECRET']
 OA_REDIRECT = os.environ['KADI_REDIRECT']
 
 OA_SCOPE = [
-    'email',
-    'profile',
+    'offline_access',
     'openid',
+    'User.Read'
 ]
 
 OA_URL_TEMPLATE = '''
