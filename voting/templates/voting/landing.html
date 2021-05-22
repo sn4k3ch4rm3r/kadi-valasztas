@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block body %}
-
-	<a href="{{oauthlink}}">Belépés</a>
-
+	<div class="landigpage-container">
+		<h3 class="mdc-typography--headline3 landing-title">Boronkay <br> Kádi választás <br> 2021</h3>
+		<p>A szavazáshoz be kell jelentkezned az iskolai email címeddel, mert így tudjuk ellenőrizni, hogy mindenki csak egyszer szavaz, és valóban a Boronkay-ba jár.</p>
+		<div class="landingpage-buttons">
+			<a href="{% url 'howitworks' %}" class="mdc-button mdc-button--outlined ripple">
+				<span class="mdc-button__ripple"></span>
+				<span class="mdc-button__label">Hogyan működik?</span>
+			</a>
+			<a href="{{ oauthlink }}" class="mdc-button mdc-button--raised ripple">
+				<span class="mdc-button__ripple"></span>
+				<span class="mdc-button__label">Bejelentkezés</span>
+			</a>
+		</div>
+	</div>
 {% endblock body %}

@@ -1,0 +1,29 @@
+:root {
+	--mdc-theme-primary: #CC1A1A;
+    --mdc-theme-secondary: #018786;
+}
+
+.landing-title {
+    font-size: 11.5vw;
+    line-height: normal;
+}
+
+.landigpage-container {
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+
+.mdc-button__label {
+    white-space: nowrap;
+}
+
+.landingpage-buttons {
+    width: min-content;
+    margin: auto;
+}
+
+.landingpage-buttons > * {
+    width: 100%;
+    margin-bottom: 5px;
+}
