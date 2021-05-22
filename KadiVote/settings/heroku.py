@@ -9,8 +9,6 @@ ALLOWED_HOSTS = ['kadi-vote.herokuapp.com']
 
 django_heroku.settings(locals())
 
-DATABASES = {
-	'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
