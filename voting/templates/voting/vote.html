@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+	<p>Email: {{request.session.email}}</p>
+	<p>
+		{% if authorized%}
+			Van jogod szavazni!
+		{% else %}
+			Nincs jogod szavazni!
+		{% endif %}
+	</p>
+{% endblock body %}
