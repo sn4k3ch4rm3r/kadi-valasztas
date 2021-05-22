@@ -1,7 +1,7 @@
 from .base import *
 import django_heroku
 
-DEBUG = False
+DEBUG = os.environ['DEBUG']
 
 ALLOWED_HOSTS = ['kadi-vote.herokuapp.com']
 
