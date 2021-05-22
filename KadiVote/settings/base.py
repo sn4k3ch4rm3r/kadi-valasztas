@@ -71,6 +71,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 OA_CLIENT_ID = os.environ['KADI_CLIENT_ID']
 OA_CLIENT_SECRET = os.environ['KADI_CLIENT_SECRET']
