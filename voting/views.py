@@ -4,6 +4,8 @@ import requests
 from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.conf import settings
+from .models import KadiCandidate
+import random 
 
 class LandingPage(View):
 	def get(self, request):
@@ -41,8 +43,16 @@ class Authenticate(View):
 
 class Vote(View):
 	def get(self, request):
+		candidates = KadiCandidate.objects.all()
+		candidates = random.sample(list(candidates), len(candidates))
 		authorized = request.session['email'].endswith('@tanulo.boronkay.hu')
-		return render(request, 'voting/vote.html', context={'authorized': authorized})
+
+		return render(request, 'voting/vote.html', 
+		context= {
+				'authorized': authorized,
+				'candidates': candidates,
+			}
+		)
 
 def logout(request):
 	request.session.clear()

@@ -13,17 +13,17 @@
 </header>
 <main class="mdc-top-app-bar--fixed-adjust">
 	<form class="voting-form">
-		{% for i in '1234567' %}
+		{% for candidate in candidates %}
 			<div class="mdc-card voting-option mdc-ripple-surface mdc-ripple-surface--primary">
-				<img class="leading-image" src="{% static 'images/boglari.png' %}" alt="">
+				<img class="leading-image" src="{% static candidate.imageurl %}" alt="">
 				<div class="candidate-card-content">
 					<div class="candidate-info">
-						<h6 class="mdc-typography--headline6 candidate-name">Boglári Gergő</h6>
-						<p class="mdc-typography--body2 candidate-class">11. P</p>
+						<h6 class="mdc-typography--headline6 candidate-name">{{ candidate.lastname }} {{ candidate.firstname }}</h6>
+						<p class="mdc-typography--body2 candidate-class">11. {{ candidate.classname}}</p>
 					</div>
 					<span class="material-icons checkmark">check_circle</span>
 				</div>
-				<input type="radio" name="kadi" value="{{i}}" id="{{i}}" class="voting-option__input">
+				<input type="radio" name="kadi" value="{{ candidate.classname }}" class="voting-option__input">
 			</div>
 		{% endfor %}
 		<button type="button" class="mdc-button mdc-button--raised submit-vote ripple">

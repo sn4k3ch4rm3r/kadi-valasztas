@@ -95,6 +95,7 @@ main {
 .leading-image {
     width: 60px;
     margin: 4px;
+    border-radius: 50%;
 }
 
 .candidate-card-content {
