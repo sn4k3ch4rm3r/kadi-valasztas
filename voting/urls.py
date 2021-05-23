@@ -9,4 +9,5 @@ urlpatterns = [
 	path('vote/', views.Vote.as_view(), name='vote'),
 	path('howitworks/', TemplateView.as_view(template_name='voting/howitworks.html'), name='howitworks'),
 	path('logout/', views.logout, name='logout'),
+	path('postlogin/', TemplateView.as_view(template_name='voting/postlogin.html'), name='postlogin'),
 ]

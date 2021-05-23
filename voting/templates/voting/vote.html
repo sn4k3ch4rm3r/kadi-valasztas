@@ -12,7 +12,8 @@
 	</div>
 </header>
 <main class="mdc-top-app-bar--fixed-adjust">
-	<form class="voting-form">
+	<form class="voting-form" method="POST">
+		{% csrf_token %}
 		{% for candidate in candidates %}
 			<div class="mdc-card voting-option mdc-ripple-surface mdc-ripple-surface--primary">
 				<img class="leading-image" src="{% static candidate.imageurl %}" alt="">
@@ -23,10 +24,10 @@
 					</div>
 					<span class="material-icons checkmark">check_circle</span>
 				</div>
-				<input type="radio" name="kadi" value="{{ candidate.classname }}" class="voting-option__input">
+				<input type="radio" name="kadi" value="{{ candidate.classname }}" class="voting-option__input" required>
 			</div>
 		{% endfor %}
-		<button type="button" class="mdc-button mdc-button--raised submit-vote ripple">
+		<button type="submit" class="mdc-button mdc-button--raised submit-vote ripple">
 			<span class="mdc-button__ripple"></span>
 			<span class="mdc-button__label">Szavazat elküldése</span>
 		</button>

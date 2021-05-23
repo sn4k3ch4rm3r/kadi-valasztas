@@ -18,12 +18,14 @@
     white-space: nowrap;
 }
 
-.landingpage-buttons {
+.landingpage-buttons,
+.pl-buttons {
     width: min-content;
     margin: auto;
 }
 
-.landingpage-buttons > * {
+.landingpage-buttons > *,
+.pl-buttons > * {
     width: 100%;
     margin-bottom: 5px;
 }
@@ -37,13 +39,25 @@
     .landigpage-container {
         max-width: 800px;
     }
-    .landingpage-buttons {
+    .landingpage-buttons,
+    .pl-buttons {
         display: flex;
         justify-content: space-between;
     }
-    .landingpage-buttons :first-child {
+    .landingpage-buttons :first-child,
+    .pl-buttons :first-child {
         margin-right: 5px;
     }
+    .pl-buttons {
+        width: 350px;
+    }
+    .pl-email {
+        padding-bottom: 20px;
+    }
+    /* .pl-name {
+        font-size: 3em;
+        line-height: normal;
+    } */
 }
 
 body {
@@ -137,4 +151,16 @@ main {
 .voting-form {
     max-width: 800px;
     margin: auto;
+}
+
+.postlogin-container {
+    text-align: center;
+}
+
+.pl-name, .pl-email {
+    margin: 0;
+}
+
+.pl-email {
+    margin-bottom: 25px;
 }

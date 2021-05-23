@@ -1,3 +1,4 @@
+from voting.decorators import voting_permission_required
 from django.http.response import HttpResponseBadRequest
 from django.urls import reverse
 import requests
@@ -6,6 +7,7 @@ from django.views.generic import View
 from django.conf import settings
 from .models import KadiCandidate
 import random 
+from django.utils.decorators import method_decorator
 
 class LandingPage(View):
 	def get(self, request):
@@ -35,24 +37,27 @@ class Authenticate(View):
 				token = resp.json()['access_token']
 
 				resp = requests.get('https://graph.microsoft.com/v1.0/me/', headers={'Authorization':f'Bearer {token}'})
-				request.session['email'] = resp.json()['userPrincipalName']
-				request.session['access_token'] = token
-				return redirect('vote')
+				user = resp.json()
+				user['authorized'] = user['userPrincipalName'].endswith('@tanulo.boronkay.hu')
+				request.session['user'] = user
+				return redirect('postlogin')
 			except:
 				return HttpResponseBadRequest()
 
+@method_decorator(voting_permission_required, name='dispatch')
 class Vote(View):
 	def get(self, request):
 		candidates = KadiCandidate.objects.all()
 		candidates = random.sample(list(candidates), len(candidates))
-		authorized = request.session['email'].endswith('@tanulo.boronkay.hu')
 
 		return render(request, 'voting/vote.html', 
 		context= {
-				'authorized': authorized,
 				'candidates': candidates,
 			}
 		)
+	def post(self, request):
+		print(request.POST)
+		return redirect('howitworks')
 
 def logout(request):
 	request.session.clear()

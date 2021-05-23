@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block body %}
+	<div class="postlogin-container">
+		<h4 class="mdc-typography--headline3 landing-title">
+			Sikeres bejelentkezés
+		</h4>
+		<h5 class="mdc-typography--headline4 pl-name">
+			{{request.session.user.displayName}}
+		</h5>
+		<p class='pl-email'>
+			{{request.session.user.userPrincipalName}}
+		</p>
+		{% if not request.session.user.authorized %}
+			<p class="mdc-typography--body2">
+				Ezzel az email címmel nincs jogod szavazni. <br>
+				Ellenőrizd, hogy a megfelelő email címet adtad meg! <br>
+				<i class="mdc-typography--caption">[vezetéknév].[keresztnév][születési év]@tanulo.boronkay.hu</i>
+			</p>
+		{% endif %}
+		<div class="pl-buttons">
+			<a href="{% url 'logout' %}" class="mdc-button mdc-button--outlined ripple">
+				<span class="mdc-button__ripple"></span>
+				<span class="mdc-button__label">Kijelentkezés</span>
+			</a>
+			{% if request.session.user.authorized %}
+				<a href="{% url 'vote' %}" class="mdc-button mdc-button--raised ripple">
+					<span class="mdc-button__ripple"></span>
+					<span class="mdc-button__label">szavazás</span>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock body %}
