@@ -3,7 +3,7 @@ from .base import *
 import django_heroku
 import dj_database_url
 
-DEBUG = os.environ['DEBUG']
+DEBUG = os.environ['DEBUG'] == 'True'
 
 ALLOWED_HOSTS = ['kadi-vote.herokuapp.com']
 
