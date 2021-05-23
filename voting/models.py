@@ -19,9 +19,10 @@ class KadiCandidate(models.Model):
 
 class Vote(models.Model):
 	candidate = models.ForeignKey(KadiCandidate, on_delete=models.DO_NOTHING)
+	timestamp = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return str(self.candidate)
+		return f'{self.timestamp.strftime("%Y-%m-%d %H:%M:%S UTC")} | {self.candidate}'
 
 	class Meta:
 		verbose_name = "Szavazat"
