@@ -12,9 +12,28 @@ class KadiCandidate(models.Model):
 	def __str__(self):
 		return self.lastname + ' ' + self.firstname + ' - 11. ' + self.classname
 
+	class Meta:
+		verbose_name = "Kádi jelölt"
+		verbose_name_plural = "Kádi jelöltek"
+		
+
 class Vote(models.Model):
-	classname = models.ForeignKey(KadiCandidate, on_delete=models.DO_NOTHING)
+	candidate = models.ForeignKey(KadiCandidate, on_delete=models.DO_NOTHING)
+
+	def __str__(self):
+		return str(self.candidate)
+
+	class Meta:
+		verbose_name = "Szavazat"
+		verbose_name_plural = "Szavazatok"
 
 class Voter(models.Model):
 	email = models.CharField(max_length=100, primary_key=True)
 	refresh_token = models.TextField()
+
+	def __str__(self):
+		return self.email
+
+	class Meta:
+		verbose_name = "Szavazó"
+		verbose_name_plural = "Szavazók"
