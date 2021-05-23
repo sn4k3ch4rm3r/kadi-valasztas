@@ -1,5 +1,5 @@
 from voting.decorators import voting_permission_required
-from django.http.response import HttpResponseBadRequest
+from django.http.response import HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 import requests
 from django.shortcuts import redirect, render
@@ -89,6 +89,16 @@ class Done(View):
 		if 'user' not in request.session or not request.session['user']['has_voted']:
 			return redirect('landing')
 		return render(request, 'voting/confirmation.html')
+
+def ms_well_known(request):
+	data = {
+		"associatedApplications": [
+			{
+				"applicationId": "5a9a502a-59bb-4e3f-a1a3-e30bf92de601"
+			}
+		]
+	}
+	return JsonResponse(data)
 
 def logout(request):
 	request.session.clear()
