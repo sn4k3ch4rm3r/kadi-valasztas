@@ -9,8 +9,12 @@ def voting_permission_required(function):
 	def wrapper(request, *args, **kwargs):
 		if 'user' in request.session:
 			user = request.session['user']
+			has_voted = len(Voter.objects.filter(pk=user['mail'])) > 0
+			if user['has_voted'] != has_voted:
+				request.sesion['user']['has_voted'] = has_voted
+				request.session.modified = True
 
-			if user['authorized'] and not user['has_voted']:
+			if user['authorized'] and not has_voted:
 				return function(request, *args, **kwargs)
 			else:
 				return HttpResponseForbidden()

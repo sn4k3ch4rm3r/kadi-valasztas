@@ -49,6 +49,12 @@ class Authenticate(View):
 			except:
 				return HttpResponseBadRequest()
 
+class PostLogin(View):
+	def get(self, request):
+		if 'user' not in request.session:
+			return redirect('landing')
+		return render(request, 'voting/postlogin.html')
+
 @method_decorator(voting_permission_required, name='dispatch')
 class Vote(View):
 	def get(self, request):
@@ -73,7 +79,16 @@ class Vote(View):
 		voter.save()
 		vote.save()
 
-		return redirect('howitworks')
+		request.session['user']['has_voted'] = True
+		request.session.modified = True
+		
+		return redirect('confirmation')
+
+class Done(View):
+	def get(self, request):
+		if 'user' not in request.session or not request.session['user']['has_voted']:
+			return redirect('landing')
+		return render(request, 'voting/confirmation.html')
 
 def logout(request):
 	request.session.clear()

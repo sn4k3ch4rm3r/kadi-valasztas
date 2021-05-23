@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+	<div class="centered-container">
+		<h4 class="mdc-typography--headline3 landing-title">
+			Rögzítettük a szavazatodat.
+		</h4>
+		<p class="mdc-typography--body1">
+			Ha kíváncsi vagy az eredményre nézz vissza később!
+		</p>
+		<div class="pl-buttons">
+			<a href="{% url 'logout' %}" class="mdc-button mdc-button--outlined ripple">
+				<span class="mdc-button__ripple"></span>
+				<span class="mdc-button__label">Kijelentkezés</span>
+			</a>
+		</div>
+	</div>
+{% endblock body %}
