@@ -164,3 +164,8 @@ main {
 .pl-email {
     margin-bottom: 25px;
 }
+
+.info-headline {
+   margin: 0;
+   line-height: normal;
+}

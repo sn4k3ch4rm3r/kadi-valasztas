@@ -5,7 +5,7 @@ import requests
 from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.conf import settings
-from .models import KadiCandidate
+from .models import KadiCandidate, Voter, Vote as VoteModel
 import random 
 from django.utils.decorators import method_decorator
 
@@ -35,10 +35,15 @@ class Authenticate(View):
 			)
 			try:
 				token = resp.json()['access_token']
+				refresh_token = resp.json()['refresh_token']
 
 				resp = requests.get('https://graph.microsoft.com/v1.0/me/', headers={'Authorization':f'Bearer {token}'})
 				user = resp.json()
+
 				user['authorized'] = user['userPrincipalName'].endswith('@tanulo.boronkay.hu')
+				user['refresh_token'] = refresh_token
+				user['has_voted'] = len(Voter.objects.filter(pk=user['mail'])) > 0
+
 				request.session['user'] = user
 				return redirect('postlogin')
 			except:
@@ -56,7 +61,18 @@ class Vote(View):
 			}
 		)
 	def post(self, request):
-		print(request.POST)
+		voted_class = request.POST['kadi']
+		candidate = KadiCandidate.objects.filter(pk=voted_class)
+		if len(candidate) == 0:
+			return HttpResponseBadRequest()
+		candidate = candidate[0]
+		
+		voter = Voter(email = request.session['user']['userPrincipalName'], refresh_token = request.session['user']['refresh_token'])
+		vote = VoteModel(candidate = candidate)
+		
+		voter.save()
+		vote.save()
+
 		return redirect('howitworks')
 
 def logout(request):

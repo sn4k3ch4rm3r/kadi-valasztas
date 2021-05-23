@@ -17,13 +17,25 @@
 				Ellenőrizd, hogy a megfelelő email címet adtad meg! <br>
 				<i class="mdc-typography--caption">[vezetéknév].[keresztnév][születési év]@tanulo.boronkay.hu</i>
 			</p>
+		{% elif request.session.user.has_voted %}
+			<h6 class="mdc-typography--headline6 info-headline">Már szavaztál!</h6>
+			<p class="mdc-typography--body2">
+				Egy email címről csak egyszer szavazhatsz, és ezt később nem módosíthatod. <br>
+				Az eredmény a szavazás lezárása után lesz elérhető.
+			</p>
+		{% else %}
+			<h6 class="mdc-typography--headline6 info-headline">Néhány tudnivaló:</h6>
+			<p class="mdc-typography--body2">
+				Csak egyszer szavazhats, és később <b>nem</b> tudod megváltoztatni, szóval válassz megfontoltan! <br>
+				Az eredményeket csak a szavazás lezárása után tesszük közzé ezen az oldalon.
+			</p>
 		{% endif %}
 		<div class="pl-buttons">
 			<a href="{% url 'logout' %}" class="mdc-button mdc-button--outlined ripple">
 				<span class="mdc-button__ripple"></span>
 				<span class="mdc-button__label">Kijelentkezés</span>
 			</a>
-			{% if request.session.user.authorized %}
+			{% if request.session.user.authorized and not request.session.user.has_voted %}
 				<a href="{% url 'vote' %}" class="mdc-button mdc-button--raised ripple">
 					<span class="mdc-button__ripple"></span>
 					<span class="mdc-button__label">szavazás</span>
