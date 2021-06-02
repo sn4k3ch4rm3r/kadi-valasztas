@@ -12,6 +12,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_admin_logs',
     'voting',
 ]
 
@@ -93,3 +94,6 @@ OA_URL_TEMPLATE = '''
     &state={state}
     &domain_hint=boronkay.hu
 '''
+
+DJANGO_ADMIN_LOGS_DELETABLE = False
+DJANGO_ADMIN_LOGS_ENABLED = True
