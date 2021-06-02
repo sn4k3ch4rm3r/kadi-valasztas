@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import KadiCandidate, Vote, Voter
 from django.conf import settings
+from csvexport.actions import csvexport
 
 class ReadOnlyAdmin(admin.ModelAdmin):
 	def has_add_permission(self, request):
@@ -24,7 +25,7 @@ class ReadOnlyAdmin(admin.ModelAdmin):
 class VoteAdmin(ReadOnlyAdmin):
 	readonly_fields = ['candidate']
 	list_display = ['timestamp', 'candidate']
-
+	actions = [csvexport]
 	
 
 @admin.register(Voter)
