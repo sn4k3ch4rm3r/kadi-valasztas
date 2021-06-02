@@ -4,12 +4,20 @@ from django.conf import settings
 
 class ReadOnlyAdmin(admin.ModelAdmin):
 	def has_add_permission(self, request):
-		return settings.DEBUG
+		if settings.DEBUG:
+			return super().has_change_permission(request)
+		else:
+			return False
 	def has_delete_permission(self, request, obj=None):
-		return settings.DEBUG
+		if settings.DEBUG:
+			return super().has_change_permission(request, obj=obj)
+		else:
+			return False
 	def has_change_permission(self, request, obj=None):
-		return settings.DEBUG
-
+		if settings.DEBUG:
+			return super().has_change_permission(request, obj=obj)
+		else:
+			return False
 	actions = None
 
 @admin.register(Vote)
