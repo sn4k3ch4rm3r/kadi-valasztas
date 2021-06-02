@@ -23,6 +23,8 @@ class ReadOnlyAdmin(admin.ModelAdmin):
 @admin.register(Vote)
 class VoteAdmin(ReadOnlyAdmin):
 	readonly_fields = ['candidate']
+	list_display = ['timestamp', 'candidate']
+
 	
 
 @admin.register(Voter)

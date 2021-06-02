@@ -1,12 +1,11 @@
 from os import truncate
 from django.db import models
-from django.db.models.fields import CharField
+from django.utils.timezone import localtime
 
 class KadiCandidate(models.Model):
-	firstname = models.CharField(max_length=10)
-	lastname = models.CharField(max_length=40)
-	nickname = models.CharField(max_length=20, blank=True)
-	classname = models.CharField(max_length=1, primary_key=True)
+	firstname = models.CharField(max_length=40, verbose_name='Keresztnév')
+	lastname = models.CharField(max_length=40, verbose_name='Vezetéknév')
+	classname = models.CharField(max_length=1, primary_key=True, verbose_name='Osztály')
 	imageurl = models.CharField(max_length=20)
 
 	def __str__(self):
@@ -18,11 +17,16 @@ class KadiCandidate(models.Model):
 		
 
 class Vote(models.Model):
-	candidate = models.ForeignKey(KadiCandidate, on_delete=models.DO_NOTHING)
-	timestamp = models.DateTimeField(auto_now_add=True)
+	candidate = models.ForeignKey(
+		KadiCandidate,
+		on_delete=models.DO_NOTHING,
+		verbose_name='Jelölt'
+	)
+	timestamp = models.DateTimeField(verbose_name='Szavazat Ideje', auto_now_add=True)
 
 	def __str__(self):
-		return f'{self.timestamp.strftime("%Y-%m-%d %H:%M:%S UTC")} | {self.candidate}'
+		print(self.timestamp.astimezone())
+		return f'{localtime(self.timestamp).strftime("%Y-%m-%d %H:%M:%S")} | {self.candidate}'
 
 	class Meta:
 		verbose_name = "Szavazat"
