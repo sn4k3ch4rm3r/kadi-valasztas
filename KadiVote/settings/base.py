@@ -91,5 +91,5 @@ OA_URL_TEMPLATE = '''
     &response_mode=query
     &scope={scope}
     &state={state}
-    &domain_hint=tanulo.boronkay.hu
+    &domain_hint=boronkay.hu
 '''

@@ -40,7 +40,7 @@ class Authenticate(View):
 				resp = requests.get('https://graph.microsoft.com/v1.0/me/', headers={'Authorization':f'Bearer {token}'})
 				user = resp.json()
 
-				user['authorized'] = user['userPrincipalName'].endswith('@tanulo.boronkay.hu')
+				user['authorized'] = user['userPrincipalName'].endswith('@tanulo.boronkay.hu') or user['userPrincipalName'].endswith('@boronkay.hu')
 				user['refresh_token'] = refresh_token
 				user['has_voted'] = len(Voter.objects.filter(pk=user['mail'])) > 0
 
@@ -101,7 +101,8 @@ def ms_well_known(request):
 	return JsonResponse(data)
 
 def logout(request):
-	request.session['voter'].clear()
+	request.session.pop('voter')
+	request.session.modified = True
 	return redirect(f"https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri={get_current_host(request) + reverse('landing')}")
 
 def get_current_host(request) -> str:
