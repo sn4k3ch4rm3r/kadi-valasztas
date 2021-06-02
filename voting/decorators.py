@@ -7,11 +7,11 @@ from django.shortcuts import redirect, render
 def voting_permission_required(function):
 	@wraps(function)
 	def wrapper(request, *args, **kwargs):
-		if 'user' in request.session:
-			user = request.session['user']
+		if 'voter' in request.session:
+			user = request.session['voter']
 			has_voted = len(Voter.objects.filter(pk=user['mail'])) > 0
 			if user['has_voted'] != has_voted:
-				request.sesion['user']['has_voted'] = has_voted
+				request.session['voter']['has_voted'] = has_voted
 				request.session.modified = True
 
 			if user['authorized'] and not has_voted:

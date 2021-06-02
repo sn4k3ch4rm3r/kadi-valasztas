@@ -44,14 +44,14 @@ class Authenticate(View):
 				user['refresh_token'] = refresh_token
 				user['has_voted'] = len(Voter.objects.filter(pk=user['mail'])) > 0
 
-				request.session['user'] = user
+				request.session['voter'] = user
 				return redirect('postlogin')
 			except:
 				return HttpResponseBadRequest()
 
 class PostLogin(View):
 	def get(self, request):
-		if 'user' not in request.session:
+		if 'voter' not in request.session:
 			return redirect('landing')
 		return render(request, 'voting/postlogin.html')
 
@@ -73,20 +73,20 @@ class Vote(View):
 			return HttpResponseBadRequest()
 		candidate = candidate[0]
 		
-		voter = Voter(email = request.session['user']['userPrincipalName'], refresh_token = request.session['user']['refresh_token'])
+		voter = Voter(email = request.session['voter']['userPrincipalName'], refresh_token = request.session['voter']['refresh_token'])
 		vote = VoteModel(candidate = candidate)
 		
 		voter.save()
 		vote.save()
 
-		request.session['user']['has_voted'] = True
+		request.session['voter']['has_voted'] = True
 		request.session.modified = True
 		
 		return redirect('confirmation')
 
 class Done(View):
 	def get(self, request):
-		if 'user' not in request.session or not request.session['user']['has_voted']:
+		if 'voter' not in request.session or not request.session['voter']['has_voted']:
 			return redirect('landing')
 		return render(request, 'voting/confirmation.html')
 
@@ -101,7 +101,7 @@ def ms_well_known(request):
 	return JsonResponse(data)
 
 def logout(request):
-	request.session.clear()
+	request.session['voter'].clear()
 	return redirect(f"https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri={get_current_host(request) + reverse('landing')}")
 
 def get_current_host(request) -> str:
