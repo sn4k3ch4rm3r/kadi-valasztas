@@ -1,4 +1,3 @@
-from datetime import time
 from voting.decorators import voting_permission_required, voting_time_period_required
 from django.http.response import HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
@@ -9,8 +8,6 @@ from django.conf import settings
 from .models import KadiCandidate, Voter, Vote as VoteModel
 import random 
 from django.utils.decorators import method_decorator
-from django.utils.timezone import localtime
-from datetime import datetime
 
 @method_decorator(voting_time_period_required, name='dispatch')
 class LandingPage(View):
