@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import KadiCandidate, Vote, Voter
+from .models import KadiCandidate, Period, Vote, Voter
 from django.conf import settings
 from csvexport.actions import csvexport
 
@@ -31,5 +31,9 @@ class VoteAdmin(ReadOnlyAdmin):
 @admin.register(Voter)
 class VoterAdmin(ReadOnlyAdmin):
 	readonly_fields = ['email', 'refresh_token']
+
+@admin.register(Period)
+class PeriodAdmin(admin.ModelAdmin):
+	list_display = ['start', 'end']
 
 admin.site.register(KadiCandidate)

@@ -24,7 +24,7 @@ class Vote(models.Model):
 
 	def __str__(self):
 		print(self.timestamp.astimezone())
-		return f'{localtime(self.timestamp).strftime("%Y-%m-%d %H:%M:%S")} | {self.candidate}'
+		return f'{localtime(self.timestamp).strftime("%Y. %m. %d. %H:%M:%S")} | {self.candidate}'
 
 	class Meta:
 		verbose_name = "Szavazat"
@@ -40,3 +40,14 @@ class Voter(models.Model):
 	class Meta:
 		verbose_name = "Szavazó"
 		verbose_name_plural = "Szavazók"
+
+class Period(models.Model):
+	start = models.DateTimeField(verbose_name="Kezdés időpontja")
+	end = models.DateTimeField(verbose_name="Befejezés időpontja")
+
+	def __str__(self):
+		return localtime(self.start).strftime("%Y. %m. %d. %H:%M") + " - " + localtime(self.end).strftime("%Y. %m. %d. %H:%M")
+	
+	class Meta:
+		verbose_name = "Időszak"
+		verbose_name_plural = "Időszakok"
