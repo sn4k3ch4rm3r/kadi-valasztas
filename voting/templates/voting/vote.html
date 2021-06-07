@@ -16,10 +16,17 @@
 		{% csrf_token %}
 		{% for candidate in candidates %}
 			<div class="mdc-card voting-option mdc-ripple-surface mdc-ripple-surface--primary">
-				<img class="leading-image" src="{% static candidate.imageurl %}" alt="">
+				<img 
+					class="leading-image"
+					src="
+						{% with "images/"|add:candidate.classname|add:".jpg" as image_url %}
+							{% static image_url %}
+						{% endwith %}
+					"
+					alt="">
 				<div class="candidate-card-content">
 					<div class="candidate-info">
-						<h6 class="mdc-typography--headline6 candidate-name">{{ candidate.lastname }} {{ candidate.firstname }}</h6>
+						<h6 class="mdc-typography--headline6 candidate-name">{{ candidate.name }}</h6>
 						<p class="mdc-typography--body2 candidate-class">11. {{ candidate.classname}}</p>
 					</div>
 					<span class="material-icons checkmark">check_circle</span>

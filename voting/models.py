@@ -3,13 +3,11 @@ from django.db import models
 from django.utils.timezone import localtime
 
 class KadiCandidate(models.Model):
-	firstname = models.CharField(max_length=40, verbose_name='Keresztnév')
-	lastname = models.CharField(max_length=40, verbose_name='Vezetéknév')
+	name = models.CharField(max_length=40, verbose_name='Név')
 	classname = models.CharField(max_length=1, primary_key=True, verbose_name='Osztály')
-	imageurl = models.CharField(max_length=20)
 
 	def __str__(self):
-		return self.lastname + ' ' + self.firstname + ' - 11. ' + self.classname
+		return self.name + ' - 11. ' + self.classname
 
 	class Meta:
 		verbose_name = "Kádi jelölt"
