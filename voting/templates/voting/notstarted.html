@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+	<div class="centered-container">
+		<h3 class="mdc-typography--headline3 landing-title">
+			A szavazás még nem kezdődött el!
+		</h3>
+		<p>A kezdésig hátrelevő idő:</p>
+		<h4 class="mdc-typography--headline2" id="countdown">
+			00:00:00
+		</h4>
+		<input type="hidden" id="start-time" value="{{start}}">
+	</div>
+	<script src="{% static 'countdown.js' %}"></script>	
+{% endblock body %}

@@ -35,5 +35,9 @@ class VoterAdmin(ReadOnlyAdmin):
 @admin.register(Period)
 class PeriodAdmin(admin.ModelAdmin):
 	list_display = ['start', 'end']
+	
+	def has_add_permission(self, request):
+		return Period.objects.count() < 1
+
 
 admin.site.register(KadiCandidate)

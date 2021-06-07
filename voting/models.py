@@ -50,4 +50,4 @@ class Period(models.Model):
 	
 	class Meta:
 		verbose_name = "Időszak"
-		verbose_name_plural = "Időszakok"
+		verbose_name_plural = "Időszak"

@@ -1,4 +1,4 @@
-from voting.decorators import voting_permission_required
+from voting.decorators import voting_permission_required, voting_time_period_required
 from django.http.response import HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 import requests
@@ -9,6 +9,7 @@ from .models import KadiCandidate, Voter, Vote as VoteModel
 import random 
 from django.utils.decorators import method_decorator
 
+@method_decorator(voting_time_period_required, name='dispatch')
 class LandingPage(View):
 	def get(self, request):
 		oa_url = settings.OA_URL_TEMPLATE.format(
@@ -49,13 +50,14 @@ class Authenticate(View):
 			except:
 				return HttpResponseBadRequest()
 
+@method_decorator(voting_time_period_required, name='dispatch')
 class PostLogin(View):
 	def get(self, request):
 		if 'voter' not in request.session:
 			return redirect('landing')
 		return render(request, 'voting/postlogin.html')
 
-@method_decorator(voting_permission_required, name='dispatch')
+@method_decorator([voting_time_period_required, voting_permission_required], name='dispatch')
 class Vote(View):
 	def get(self, request):
 		candidates = KadiCandidate.objects.all()
@@ -84,6 +86,7 @@ class Vote(View):
 		
 		return redirect('confirmation')
 
+@method_decorator(voting_time_period_required, name='dispatch')
 class Done(View):
 	def get(self, request):
 		if 'voter' not in request.session or not request.session['voter']['has_voted']:
