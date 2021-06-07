@@ -1,3 +1,4 @@
+from datetime import time
 from voting.decorators import voting_permission_required, voting_time_period_required
 from django.http.response import HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
@@ -8,6 +9,8 @@ from django.conf import settings
 from .models import KadiCandidate, Voter, Vote as VoteModel
 import random 
 from django.utils.decorators import method_decorator
+from django.utils.timezone import localtime
+from datetime import datetime
 
 @method_decorator(voting_time_period_required, name='dispatch')
 class LandingPage(View):
@@ -92,6 +95,48 @@ class Done(View):
 		if 'voter' not in request.session or not request.session['voter']['has_voted']:
 			return redirect('landing')
 		return render(request, 'voting/confirmation.html')
+
+class Results(View):
+	def get(self, request):
+		votes = VoteModel.objects.all()
+		summary = dict.fromkeys(KadiCandidate.objects.all(), 0)
+		timelines = dict(summary)
+
+		for candidate in timelines.keys():
+			timelines[candidate] = dict()
+			timelines[candidate]['data'] = list()
+
+		for vote in votes[:len(votes)]:
+			summary[vote.candidate] += 1
+			timelines[vote.candidate]['data'].append({
+				'x': str(vote.timestamp),
+				'y': summary[vote.candidate]
+			})
+		
+		summary = dict(sorted(summary.items(), key=lambda item: item[1], reverse=True))
+
+		timelines_context = []
+		for tl in timelines.keys():
+			tld = {
+				'candidate': tl,
+				'data': timelines[tl]['data'],
+			}
+			if len(tld['data']) == 0 or tld['data'][len(tld['data'])-1]['x'] != str(votes[len(votes)-1].timestamp):
+				tld['data'].append({
+					'x': str(votes[len(votes)-1].timestamp),
+					'y': summary[tl],
+				})
+			timelines_context.append(tld)
+
+		context = {
+			'summary': {
+				'labels': list(map(str, list(summary.keys()))),
+				'data': list(summary.values()),
+				'colors': [x.color for x in summary.keys()]
+			},
+			'timelines': timelines_context
+		}
+		return render(request, 'voting/results.html', context=context)
 
 def ms_well_known(request):
 	data = {

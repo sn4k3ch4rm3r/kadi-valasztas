@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block body %}
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@next/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+	<div class="centered-container">
+		<h4 class="mdc-typography--headline3 landing-title">
+			A szavazás eredménye
+		</h4>
+		<div class="chart-container">
+			<canvas class='chart' id="voting-results-pie"></canvas>
+		</div>
+		<div class="chart-container">
+			<canvas height="200px" class='chart' id="voting-results-bar"></canvas>
+		</div>
+		<div class="chart-container">
+			<canvas class='chart' id="voting-timeline"></canvas>
+		</div>
+	</div>
+	<script>
+		let votingResultsPie = document.getElementById('voting-results-pie').getContext('2d');
+		let votingResultsBar = document.getElementById('voting-results-bar').getContext('2d');
+		let votingTimeline = document.getElementById('voting-timeline').getContext('2d');
+
+		let summaryPieChart = new Chart(votingResultsPie, {
+			type: 'pie',
+			data: {
+				labels: {{ summary.labels|safe }},
+				datasets: [{
+					label: 'Eredmények',
+					data: {{ summary.data|safe }},
+					backgroundColor: {{ summary.colors|safe }},
+					hoverOffset: 4
+				}]
+			},
+			options: {
+				plugins: {
+					legend: {
+						position: 'bottom'
+					},
+					title: {
+						display: true,
+						text: 'Szavazatok eloszlása'
+					}
+				}
+			}
+		});
+
+		let summaryBarChart = new Chart(votingResultsBar, {
+			type: 'bar',
+			data: {
+				labels: {{ summary.labels|safe }},
+				datasets: [{
+					data: {{ summary.data|safe }},
+					backgroundColor: {{ summary.colors|safe }},
+					hoverOffset: 4
+				}]
+			},
+			options: {
+				plugins: {
+					legend: {
+						display: false
+					},
+					title: {
+						display: true,
+						text: 'Szavazatok'
+					}
+				}
+			}
+		});
+
+		let timelineChart = new Chart(votingTimeline, {
+			type: 'line',
+			data: {
+				datasets: [
+					{% for timeline in timelines %}
+						{
+							label: '{{timeline.candidate}}',
+							data: {{timeline.data|safe }},
+							borderColor: ['{{ timeline.candidate.color }}'],
+							tension: 0.1,
+							borderCapStyle: 'None'
+						},
+					{% endfor %}
+				]
+			},
+			options: {
+				plugins: {
+					title: {
+						display: true,
+						text: 'Szavazatok eloszlása időben'
+					},
+					legend: {
+						position: 'bottom'
+					}
+				},
+				scales: {
+					x: {
+						type: 'time',
+						time: {
+							displayFormats: {
+								minute: 'HH:mm',
+								second: 'HH:mm:ss'
+							}
+						},
+					}
+				},
+			}
+		});
+	</script>
+{% endblock body %}

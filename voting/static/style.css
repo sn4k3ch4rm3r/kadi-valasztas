@@ -54,10 +54,6 @@
     .pl-email {
         padding-bottom: 20px;
     }
-    /* .pl-name {
-        font-size: 3em;
-        line-height: normal;
-    } */
 }
 
 body {
@@ -172,4 +168,12 @@ main {
 
 #countdown {
     margin: 0;
+}
+
+.chart-container {
+    margin: auto;
+}
+
+.chart {
+    margin-bottom: 10px;
 }

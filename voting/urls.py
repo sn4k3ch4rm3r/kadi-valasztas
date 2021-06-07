@@ -11,5 +11,6 @@ urlpatterns = [
 	path('logout/', views.logout, name='logout'),
 	path('postlogin/', views.PostLogin.as_view(), name='postlogin'),
 	path('done/', views.Done.as_view(), name='confirmation'),
+	path('results/', views.Results.as_view(), name='results'),
 	path('.well-known/microsoft-identity-association.json', views.ms_well_known, name='ms_well-known')
 ]
