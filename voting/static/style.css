@@ -54,6 +54,9 @@
     .pl-email {
         padding-bottom: 20px;
     }
+    .chart-container {
+        width: 80%;
+    }
 }
 
 body {
@@ -172,8 +175,12 @@ main {
 
 .chart-container {
     margin: auto;
+    height: 60vh;
+    position: relative;
 }
 
 .chart {
     margin-bottom: 10px;
+    height: 100% !important;
+    width: 100% !important;
 }

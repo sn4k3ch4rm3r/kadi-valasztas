@@ -22,6 +22,8 @@
 		let votingResultsBar = document.getElementById('voting-results-bar').getContext('2d');
 		let votingTimeline = document.getElementById('voting-timeline').getContext('2d');
 
+		Chart.defaults.maintainAspectRatio = false;
+
 		let summaryPieChart = new Chart(votingResultsPie, {
 			type: 'pie',
 			data: {
