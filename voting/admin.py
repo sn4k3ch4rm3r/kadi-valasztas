@@ -30,7 +30,7 @@ class VoteAdmin(ReadOnlyAdmin):
 
 @admin.register(Voter)
 class VoterAdmin(ReadOnlyAdmin):
-	readonly_fields = ['email', 'refresh_token']
+	readonly_fields = ['email']
 
 @admin.register(Period)
 class PeriodAdmin(admin.ModelAdmin):

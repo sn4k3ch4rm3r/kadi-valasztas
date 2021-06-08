@@ -75,7 +75,7 @@ class Vote(View):
 			return HttpResponseBadRequest()
 		candidate = candidate[0]
 		
-		voter = Voter(email = request.session['voter']['userPrincipalName'], refresh_token = request.session['voter']['refresh_token'])
+		voter = Voter(email = request.session['voter']['userPrincipalName'])
 		vote = VoteModel(candidate = candidate)
 		
 		voter.save()
