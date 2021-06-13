@@ -44,7 +44,6 @@ def voting_time_period_required(function):
 		if period.end <= now:
 			return render(request, 'voting/ended.html')
 
-		print('currently running')
 		return function(request, *args, **kwargs)
 	
 	return wrapper

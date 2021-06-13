@@ -36,7 +36,7 @@
         font-weight: 300;
     }
 
-    .landigpage-container {
+    .landigpage-container, .hw-container {
         max-width: 800px;
     }
     .landingpage-buttons,
@@ -70,6 +70,7 @@ body {
 #watermark {
     text-align: center;
     margin-top: auto;
+    line-height: normal;
 }
 
 main {
@@ -183,4 +184,40 @@ main {
     margin-bottom: 10px;
     height: 100% !important;
     width: 100% !important;
+}
+
+.hw-container {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.hw-container p {
+    margin-left: 15px;
+}
+
+.howitworks-title {
+    margin: 0;
+}
+
+.hw-container table {
+    font-size: 14px;
+    margin: 0 auto;
+
+}
+
+.hw-container th {
+    padding-right: 10px;
+    font-weight: normal;
+    text-align: right;
+}
+
+code {
+    background-color: whitesmoke;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 14px;
+}
+
+a {
+    color: var(--mdc-theme-secondary);
 }

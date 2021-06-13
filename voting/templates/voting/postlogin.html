@@ -15,7 +15,10 @@
 			<p class="mdc-typography--body2">
 				Ezzel az email címmel nincs jogod szavazni. <br>
 				Ellenőrizd, hogy a megfelelő email címet adtad meg! <br>
-				<i class="mdc-typography--caption">[vezetéknév].[keresztnév][születési év]@tanulo.boronkay.hu</i>
+				<i class="mdc-typography--caption">
+					[vezetéknév].[keresztnév][születési év]@tanulo.boronkay.hu<br>
+					[vezetéknév].[keresztnév]@boronkay.hu
+				</i>
 			</p>
 		{% elif request.session.voter.has_voted %}
 			<h6 class="mdc-typography--headline6 info-headline">Már szavaztál!</h6>
@@ -27,7 +30,7 @@
 			<h6 class="mdc-typography--headline6 info-headline">Néhány tudnivaló:</h6>
 			<p class="mdc-typography--body2">
 				Csak egyszer szavazhatsz, és később <b>nem</b> tudod megváltoztatni, szóval válassz megfontoltan! <br>
-				Az eredményeket csak a szavazás lezárása után tesszük közzé ezen az oldalon.
+				Az eredmény a szavazás lezárása után lesz elérhető.
 			</p>
 		{% endif %}
 		<div class="pl-buttons">
