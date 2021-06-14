@@ -96,43 +96,47 @@ class Done(View):
 class Results(View):
 	def get(self, request):
 		votes = VoteModel.objects.all()
-		summary = dict.fromkeys(KadiCandidate.objects.all(), 0)
-		timelines = dict(summary)
+		context = dict()
 
-		for candidate in timelines.keys():
-			timelines[candidate] = dict()
-			timelines[candidate]['data'] = list()
+		if len(votes) > 0:
+			summary = dict.fromkeys(KadiCandidate.objects.all(), 0)
+			timelines = dict(summary)
 
-		for vote in votes[:len(votes)]:
-			summary[vote.candidate] += 1
-			timelines[vote.candidate]['data'].append({
-				'x': str(vote.timestamp),
-				'y': summary[vote.candidate]
-			})
-		
-		summary = dict(sorted(summary.items(), key=lambda item: item[1], reverse=True))
+			for candidate in timelines.keys():
+				timelines[candidate] = dict()
+				timelines[candidate]['data'] = list()
 
-		timelines_context = []
-		for tl in timelines.keys():
-			tld = {
-				'candidate': tl,
-				'data': timelines[tl]['data'],
-			}
-			if len(tld['data']) == 0 or tld['data'][len(tld['data'])-1]['x'] != str(votes[len(votes)-1].timestamp):
-				tld['data'].append({
-					'x': str(votes[len(votes)-1].timestamp),
-					'y': summary[tl],
+			for vote in votes[:len(votes)]:
+				summary[vote.candidate] += 1
+				timelines[vote.candidate]['data'].append({
+					'x': str(vote.timestamp),
+					'y': summary[vote.candidate]
 				})
-			timelines_context.append(tld)
+			
+			summary = dict(sorted(summary.items(), key=lambda item: item[1], reverse=True))
 
-		context = {
-			'summary': {
-				'labels': list(map(str, list(summary.keys()))),
-				'data': list(summary.values()),
-				'colors': [x.color for x in summary.keys()]
-			},
-			'timelines': timelines_context
-		}
+			timelines_context = []
+			for tl in timelines.keys():
+				tld = {
+					'candidate': tl,
+					'data': timelines[tl]['data'],
+				}
+				if len(tld['data']) == 0 or tld['data'][len(tld['data'])-1]['x'] != str(votes[len(votes)-1].timestamp):
+					tld['data'].append({
+						'x': str(votes[len(votes)-1].timestamp),
+						'y': summary[tl],
+					})
+				timelines_context.append(tld)
+
+			context = {
+				'summary': {
+					'labels': list(map(str, list(summary.keys()))),
+					'data': list(summary.values()),
+					'colors': [x.color for x in summary.keys()]
+				},
+				'timelines': timelines_context
+			}
+		context['total'] = len(votes)
 		return render(request, 'voting/results.html', context=context)
 
 def ms_well_known(request):
