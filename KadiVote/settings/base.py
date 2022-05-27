@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django_admin_logs',
     'csvexport',
     'voting',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+AUTH_USER_MODEL = 'authentication.User'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # 'authentication.backends.OAuthBackend',
 ]
 
 LANGUAGE_CODE = 'hu-HU'
