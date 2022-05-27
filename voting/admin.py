@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import KadiCandidate, Period, Vote, Voter
+from .models import KadiCandidate, Period, Vote
 from django.conf import settings
 from csvexport.actions import csvexport
 
@@ -26,11 +26,6 @@ class VoteAdmin(ReadOnlyAdmin):
 	readonly_fields = ['candidate']
 	list_display = ['timestamp', 'candidate']
 	actions = [csvexport]
-	
-
-@admin.register(Voter)
-class VoterAdmin(ReadOnlyAdmin):
-	readonly_fields = ['email']
 
 @admin.register(Period)
 class PeriodAdmin(admin.ModelAdmin):

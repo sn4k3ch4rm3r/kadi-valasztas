@@ -5,9 +5,11 @@ import requests
 from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.conf import settings
-from .models import KadiCandidate, Voter, Vote as VoteModel
+from .models import KadiCandidate, Vote as VoteModel
 import random 
 from django.utils.decorators import method_decorator
+from authentication.backends import OAuthBackend
+from django.contrib.auth import login, logout
 
 @method_decorator(voting_time_period_required, name='dispatch')
 class LandingPage(View):
@@ -36,16 +38,7 @@ class Authenticate(View):
 			)
 			try:
 				token = resp.json()['access_token']
-				refresh_token = resp.json()['refresh_token']
-
-				resp = requests.get('https://graph.microsoft.com/v1.0/me/', headers={'Authorization':f'Bearer {token}'})
-				user = resp.json()
-
-				user['authorized'] = user['userPrincipalName'].endswith('@tanulo.boronkay.hu') or user['userPrincipalName'].endswith('@boronkay.hu')
-				user['refresh_token'] = refresh_token
-				user['has_voted'] = len(Voter.objects.filter(pk=user['mail'])) > 0
-
-				request.session['voter'] = user
+				login(request, OAuthBackend.authenticate(self, request, token))
 				return redirect('postlogin')
 			except:
 				return HttpResponseBadRequest()
@@ -53,7 +46,7 @@ class Authenticate(View):
 @method_decorator(voting_time_period_required, name='dispatch')
 class PostLogin(View):
 	def get(self, request):
-		if 'voter' not in request.session:
+		if not request.user.is_authenticated:
 			return redirect('landing')
 		return render(request, 'voting/postlogin.html')
 
@@ -75,22 +68,21 @@ class Vote(View):
 			return HttpResponseBadRequest()
 		candidate = candidate[0]
 		
-		voter = Voter(email = request.session['voter']['userPrincipalName'])
+		request.user.has_voted = True
+		request.user.save()
 		vote = VoteModel(candidate = candidate)
 		
-		voter.save()
 		vote.save()
 
-		request.session['voter']['has_voted'] = True
-		request.session.modified = True
-		
 		return redirect('confirmation')
 
 @method_decorator(voting_time_period_required, name='dispatch')
 class Done(View):
 	def get(self, request):
-		if 'voter' not in request.session or not request.session['voter']['has_voted']:
+		if not request.user.is_authenticated:
 			return redirect('landing')
+		elif not request.user.has_voted:
+			return redirect('postlogin')
 		return render(request, 'voting/confirmation.html')
 
 class Results(View):
@@ -149,9 +141,8 @@ def ms_well_known(request):
 	}
 	return JsonResponse(data)
 
-def logout(request):
-	request.session.pop('voter')
-	request.session.modified = True
+def logout_endpoint(request):
+	logout(request)
 	return redirect(f"https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri={get_current_host(request) + reverse('landing')}")
 
 def get_current_host(request) -> str:

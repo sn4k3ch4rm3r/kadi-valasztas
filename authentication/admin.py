@@ -29,7 +29,7 @@ class MyUserAdmin(UserAdmin):
 @admin.register(User)
 class UserAdmin(MyUserAdmin):
 	list_display = ['email', 'is_staff', 'has_voted']
-	ordering = ['email', 'is_staff']
+	ordering = ['-is_staff', 'email']
 	readonly_fields = ['has_voted', 'can_vote', 'date_joined', 'last_login']
 
 admin.site.unregister(DjangoGroup)

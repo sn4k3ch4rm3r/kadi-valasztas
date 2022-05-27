@@ -31,16 +31,6 @@ class Vote(models.Model):
 		verbose_name = "Szavazat"
 		verbose_name_plural = "Szavazatok"
 
-class Voter(models.Model):
-	email = models.CharField(max_length=100, primary_key=True)
-
-	def __str__(self):
-		return self.email
-
-	class Meta:
-		verbose_name = "Szavazó"
-		verbose_name_plural = "Szavazók"
-
 class Period(models.Model):
 	start = models.DateTimeField(verbose_name="Kezdés időpontja")
 	end = models.DateTimeField(verbose_name="Befejezés időpontja")

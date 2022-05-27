@@ -6,12 +6,12 @@
 			Sikeres bejelentkezés
 		</h4>
 		<h5 class="mdc-typography--headline4 pl-name">
-			{{request.session.voter.displayName}}
+			{{user.display_name}}
 		</h5>
 		<p class='pl-email'>
-			{{request.session.voter.userPrincipalName}}
+			{{user.email}}
 		</p>
-		{% if not request.session.voter.authorized %}
+		{% if not user.can_vote %}
 			<p class="mdc-typography--body2">
 				Ezzel az email címmel nincs jogod szavazni. <br>
 				Ellenőrizd, hogy a megfelelő email címet adtad meg! <br>
@@ -20,7 +20,7 @@
 					[vezetéknév].[keresztnév]@boronkay.hu
 				</i>
 			</p>
-		{% elif request.session.voter.has_voted %}
+		{% elif user.has_voted %}
 			<h6 class="mdc-typography--headline6 info-headline">Már szavaztál!</h6>
 			<p class="mdc-typography--body2">
 				Egy email címről csak egyszer szavazhatsz, és ezt később nem módosíthatod. <br>
@@ -38,12 +38,18 @@
 				<span class="mdc-button__ripple"></span>
 				<span class="mdc-button__label">Kijelentkezés</span>
 			</a>
-			{% if request.session.voter.authorized and not request.session.voter.has_voted %}
+			{% if user.can_vote and not user.has_voted %}
 				<a href="{% url 'vote' %}" class="mdc-button mdc-button--raised ripple">
 					<span class="mdc-button__ripple"></span>
 					<span class="mdc-button__label">szavazás</span>
 				</a>
 			{% endif %}
 		</div>
+		{% if user.is_staff %}
+			<a href="{% url 'admin:index' %}" class="mdc-button mdc-button--text ripple">
+				<span class="mdc-button__ripple"></span>
+				<span class="mdc-button__label">Admin panel</span>
+			</a>
+		{% endif %}
 	</div>
 {% endblock body %}

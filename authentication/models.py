@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(verbose_name='Email cím', unique=True)
-	display_name = models.CharField(verbose_name='Név', max_length=100, default='')
+	display_name = models.CharField(verbose_name='Név', max_length=100, blank=True)
 
 	date_joined	= models.DateTimeField(verbose_name='Csatlakozás dátuma', auto_now_add=True)
 	last_login = models.DateTimeField(verbose_name='Utolsó bejelentkezés', auto_now=True)
