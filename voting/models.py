@@ -5,7 +5,8 @@ from django.utils.timezone import localtime
 class KadiCandidate(models.Model):
 	name = models.CharField(max_length=40, verbose_name='Név')
 	classname = models.CharField(max_length=1, primary_key=True, verbose_name='Osztály')
-	color = models.CharField(max_length=20, verbose_name='Szín')
+	color = models.CharField(max_length=7, verbose_name='Szín')
+	image = models.ImageField(verbose_name='Kép')
 
 	def __str__(self):
 		return self.name + ' - 11. ' + self.classname

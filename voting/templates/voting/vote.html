@@ -19,9 +19,7 @@
 				<img 
 					class="leading-image"
 					src="
-						{% with "images/"|add:candidate.classname|add:".jpg" as image_url %}
-							{% static image_url %}
-						{% endwith %}
+						{{ candidate.image.url }}
 					"
 					alt="">
 				<div class="candidate-card-content">

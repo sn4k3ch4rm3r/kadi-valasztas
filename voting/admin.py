@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from voting.forms import KadiCandidateForm
 from .models import KadiCandidate, Period, Vote
 from django.conf import settings
 from csvexport.actions import csvexport
@@ -34,5 +36,12 @@ class PeriodAdmin(admin.ModelAdmin):
 	def has_add_permission(self, request):
 		return Period.objects.count() < 1
 
-
-admin.site.register(KadiCandidate)
+@admin.register(KadiCandidate)
+class KadiCandidateAdmin(admin.ModelAdmin):
+	form = KadiCandidateForm
+	fieldsets = (
+        (None, {
+            'fields': ('name', 'classname', 'image', 'color')
+            }),
+        )
+	
