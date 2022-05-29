@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.auth.models import Group as DjangoGroup
+from django.contrib.auth.forms import PasswordResetForm
+from django.utils.crypto import get_random_string
 from .models import User, Group
 
 class MyUserChangeForm(UserChangeForm):
