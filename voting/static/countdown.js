@@ -17,4 +17,9 @@ function tick() {
 	countdown.innerText = hrs.toString().padStart(2, '0') + ':' + mins.toString().padStart(2, '0') + ':' + sec.toString().padStart(2, '0');
 }
 
-timer = window.setInterval(tick, 10);
+if(startTime != -1) {
+	timer = window.setInterval(tick, 10);
+}
+else {
+	countdown.innerText = "Nincs beállítva."
+}

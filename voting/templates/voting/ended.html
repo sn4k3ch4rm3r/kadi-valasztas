@@ -11,5 +11,13 @@
 				<span class="mdc-button__label">Eredmények</span>
 			</a>
 		</div>
+		{% if user.is_staff %}
+			<div class="pl-buttons">
+				<a href="{% url 'admin:index' %}" class="mdc-button mdc-button--outlined ripple">
+					<span class="mdc-button__ripple"></span>
+					<span class="mdc-button__label">Admin panel</span>
+				</a>
+			</div>
+		{% endif %}
 	</div>
 {% endblock body %}

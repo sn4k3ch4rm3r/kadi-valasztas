@@ -11,6 +11,14 @@
 			00:00:00
 		</h4>
 		<input type="hidden" id="start-time" value="{{start}}">
+		{% if user.is_staff %}
+			<div class="pl-buttons">
+				<a href="{% url 'admin:index' %}" class="mdc-button mdc-button--outlined ripple">
+					<span class="mdc-button__ripple"></span>
+					<span class="mdc-button__label">Admin panel</span>
+				</a>
+			</div>
+		{% endif %}
 	</div>
 	<script src="{% static 'countdown.js' %}"></script>	
 {% endblock body %}

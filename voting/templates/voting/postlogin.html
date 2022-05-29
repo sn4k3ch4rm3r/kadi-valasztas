@@ -46,10 +46,12 @@
 			{% endif %}
 		</div>
 		{% if user.is_staff %}
-			<a href="{% url 'admin:index' %}" class="mdc-button mdc-button--text ripple">
-				<span class="mdc-button__ripple"></span>
-				<span class="mdc-button__label">Admin panel</span>
-			</a>
+			<div class="pl-buttons">
+				<a href="{% url 'admin:index' %}" class="mdc-button mdc-button--text ripple">
+					<span class="mdc-button__ripple"></span>
+					<span class="mdc-button__label">Admin panel</span>
+				</a>
+			</div>
 		{% endif %}
 	</div>
 {% endblock body %}

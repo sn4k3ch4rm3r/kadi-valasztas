@@ -11,7 +11,6 @@ from django.utils.decorators import method_decorator
 from authentication.backends import OAuthBackend
 from django.contrib.auth import login, logout
 
-@method_decorator(voting_time_period_required, name='dispatch')
 class LandingPage(View):
 	def get(self, request):
 		oa_url = settings.OA_URL_TEMPLATE.format(

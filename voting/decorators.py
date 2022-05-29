@@ -25,7 +25,9 @@ def voting_time_period_required(function):
 		period = Period.objects.all()
 
 		if len(period) != 1:
-			return HttpResponseServerError()
+			return render(request, 'voting/notstarted.html', context={
+				'start': -1
+			})
 		
 		period = period[0];
 		now = datetime.utcnow().replace(tzinfo=pytz.utc)
