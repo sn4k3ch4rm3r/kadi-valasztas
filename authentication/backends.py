@@ -14,6 +14,5 @@ class OAuthBackend(BaseBackend):
 			user = user[0]
 
 		user.display_name = data['displayName']
-		user.can_vote = data['userPrincipalName'].endswith('@tanulo.boronkay.hu') or data['userPrincipalName'].endswith('@boronkay.hu')
 		user.save()
 		return user
