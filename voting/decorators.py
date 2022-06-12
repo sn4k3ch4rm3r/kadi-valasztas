@@ -22,6 +22,9 @@ def voting_permission_required(function):
 def voting_time_period_required(function):
 	@wraps(function)
 	def wrapper(request, *args, **kwargs):
+		if request.user.is_superuser:
+			return function(request, *args, **kwargs)
+			
 		period = Period.objects.all()
 
 		if len(period) != 1:
