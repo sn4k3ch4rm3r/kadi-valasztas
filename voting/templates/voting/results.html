@@ -35,7 +35,8 @@
 					label: 'Eredmények',
 					data: {{ summary.data|safe }},
 					backgroundColor: {{ summary.colors|safe }},
-					hoverOffset: 4
+					hoverOffset: 4,
+					borderColor: 'black' 
 				}]
 			},
 			options: {
@@ -58,7 +59,9 @@
 				datasets: [{
 					data: {{ summary.data|safe }},
 					backgroundColor: {{ summary.colors|safe }},
-					hoverOffset: 4
+					hoverOffset: 4,
+					borderColor: 'black',
+					borderWidth: 2
 				}]
 			},
 			options: {
@@ -82,7 +85,7 @@
 						{
 							label: '{{timeline.candidate}}',
 							data: {{timeline.data|safe }},
-							borderColor: ['{{ timeline.candidate.color }}'],
+							borderColor: ['{% if timeline.candidate.color == "#ffffff" %}lightGrey{% else %}{{ timeline.candidate.color }}{% endif %}'],
 							tension: 0.1,
 							borderCapStyle: 'None'
 						},
@@ -97,7 +100,7 @@
 					},
 					legend: {
 						position: 'bottom'
-					}
+					},
 				},
 				scales: {
 					x: {
@@ -110,7 +113,7 @@
 						},
 					}
 				},
-			}
+			},
 		});
 	</script>
 {% endblock body %}
