@@ -1,4 +1,5 @@
 from .base import *
+import logging
 
 DEBUG = True
 
@@ -10,3 +11,5 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+logging.basicConfig(level=logging.DEBUG)

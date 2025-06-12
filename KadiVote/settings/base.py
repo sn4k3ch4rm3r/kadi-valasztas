@@ -89,7 +89,6 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ['CLOUDINARY_API_KEY'],
     'API_SECRET': os.environ['CLOUDINARY_API_SECRET'],
 }
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 OA_CLIENT_ID = os.environ['KADI_CLIENT_ID']
 OA_CLIENT_SECRET = os.environ['KADI_CLIENT_SECRET']

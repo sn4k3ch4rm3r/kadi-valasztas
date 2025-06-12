@@ -1,12 +1,13 @@
 from os import truncate
 from django.db import models
 from django.utils.timezone import localtime
+from cloudinary.models import CloudinaryField
 
 class KadiCandidate(models.Model):
 	name = models.CharField(max_length=40, verbose_name='Név')
 	classname = models.CharField(max_length=1, primary_key=True, verbose_name='Osztály')
 	color = models.CharField(max_length=7, verbose_name='Szín')
-	image = models.ImageField(verbose_name='Kép')
+	image = CloudinaryField('Kép')
 
 	def __str__(self):
 		return self.name + ' - 11. ' + self.classname
